@@ -7,35 +7,30 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RedMood.Models;
+using System.Threading.Tasks;
 
 namespace RedMood.Controllers
 {
     public class MoodsController : Controller
     {
         private RedMoodContext db = new RedMoodContext();
+        private MoodService service = new MoodService();
 
-        // GET: Moods
-        public ActionResult Increase(int? id)
+        // GET: Moods/Increase/5
+        public async Task<ActionResult> Increase(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Moods moods = db.Moods.Find(id);
-            if (moods == null)
-            {
-                return HttpNotFound();
-            }
-            moods.count = moods.count + 1;
-            db.Entry(moods).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return View("index",
+                await service.GetMoodsAsync()
+            );
         }
 
-        // GET: Moods
-        public ActionResult Index()
+        // GET: Moods         
+        public async Task<ActionResult> Index()
         {
-            return View(db.Moods.ToList());
+
+            return View("index",
+                await service.GetMoodsAsync()
+            );
         }
 
         // GET: Moods/Details/5
