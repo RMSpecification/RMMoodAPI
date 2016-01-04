@@ -5,10 +5,10 @@ using System.Web;
 
 namespace RedMood.Models
 {
-    public class Moods
+    public class Mood
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public int count { get; set; }
+        public int Counter { get; set; }
     }
 }

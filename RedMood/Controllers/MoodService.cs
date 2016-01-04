@@ -11,18 +11,16 @@ using System.Web;
 namespace RedMood.Controllers
 {
     public class MoodService
-    {
+    {       
 
-        
-
-        public async Task<List<Moods>> GetMoodsAsync()
+        public async Task<List<Mood>> GetMoodsAsync()
         {
             string uri = "http://localhost:53154//api/moods";
 
             using (HttpClient httpClient = new HttpClient())
             {
 
-                return JsonConvert.DeserializeObject<List<Moods>>(
+                return JsonConvert.DeserializeObject<List<Mood>>(
                     await httpClient.GetStringAsync(uri)
                 );
             }
