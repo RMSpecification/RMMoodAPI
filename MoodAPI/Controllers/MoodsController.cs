@@ -33,35 +33,17 @@ namespace MoodAPI.Controllers
 
         // PUT: api/Moods/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutMood(int id, Mood mood)
+        public IHttpActionResult PutMood(int id)
         {
-            if (!ModelState.IsValid)
+            var mood = db.Moods.Find(id);
+            if( mood == null )
             {
-                return BadRequest(ModelState);
+                return NotFound();
             }
 
-            if (id != mood.Id)
-            {
-                return BadRequest();
-            }
-                        
+            mood.Counter += 1;                     
             db.MarkAsModified(mood);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MoodExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);
         }

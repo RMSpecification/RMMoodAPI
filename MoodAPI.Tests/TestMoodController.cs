@@ -33,7 +33,7 @@ namespace MoodAPI.Tests
 
             var item = GetDemoMood();
 
-            var result = controller.PutMood(item.Id, item) as StatusCodeResult;
+            var result = controller.PutMood(item.Id) as StatusCodeResult;
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(StatusCodeResult));
             Assert.AreEqual(HttpStatusCode.NoContent, result.StatusCode);
@@ -44,7 +44,7 @@ namespace MoodAPI.Tests
         {
             var controller = new MoodsController(new TestMoodContext());
 
-            var badresult = controller.PutMood(999, GetDemoMood());
+            var badresult = controller.PutMood(999);
             Assert.IsInstanceOfType(badresult, typeof(BadRequestResult));
         }
        

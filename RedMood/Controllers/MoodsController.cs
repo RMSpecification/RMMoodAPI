@@ -17,8 +17,9 @@ namespace RedMood.Controllers
         private MoodService service = new MoodService();
 
         // GET: Moods/Increase/5
-        public async Task<ActionResult> Increase(int? id)
+        public async Task<ActionResult> Increase(int id)
         {
+            await service.Increase(id);
             return View("index",
                 await service.GetMoodsAsync()
             );
