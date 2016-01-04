@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RedMood.Controllers
 {
-    public class MoodsController : Controller
+    public class MoodController : Controller
     {
         private RedMoodContext db = new RedMoodContext();
         private MoodService service = new MoodService();
