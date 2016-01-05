@@ -25,29 +25,7 @@ namespace MoodAPI.Tests
             Assert.AreEqual(result.RouteValues["id"], result.Content.Id);
             Assert.AreEqual(result.Content.Counter, item.Counter);
         }
-
-        [TestMethod]
-        public void PutMood_ShouldReturnStatusCode()
-        {
-            var controller = new MoodsController(new TestMoodContext());
-
-            var item = GetDemoMood();
-
-            var result = controller.PutMood(item.Id) as StatusCodeResult;
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(StatusCodeResult));
-            Assert.AreEqual(HttpStatusCode.NoContent, result.StatusCode);
-        }
-
-        [TestMethod]
-        public void PutMood_ShouldFail_WhenDifferentID()
-        {
-            var controller = new MoodsController(new TestMoodContext());
-
-            var badresult = controller.PutMood(999);
-            Assert.IsInstanceOfType(badresult, typeof(BadRequestResult));
-        }
-       
+                
         [TestMethod]
         public void GetMoods_ShouldReturnAllMoods()
         {
