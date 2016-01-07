@@ -23,6 +23,9 @@ namespace Mood.Specs
         public void GivenIFeelHappy()
         {
             moodIndex = 1; //Happysmiley in the database has id = 1
+
+            //System.Collections.Generic.List<RedMood.Models.Mood> moods = await service.GetMoodsAsync();
+            //moodIndex = (moods.Find(x => x.Description.Contains("Happy"))).Id;
         }
 
         [Given(@"the counter for the happy smiley is set to a value")]
@@ -41,7 +44,6 @@ namespace Mood.Specs
         [Then(@"the happy smiley counter value should be increased with (.*)")]
         public async void ThenTheHappySmileyCounterValueShouldBeIncreasedWith(int increase)
         {
-
             System.Collections.Generic.List<RedMood.Models.Mood> moods = await service.GetMoodsAsync();
             if (moods != null)
             {
