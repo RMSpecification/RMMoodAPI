@@ -9,23 +9,7 @@ namespace MoodAPI.Tests
 {
     [TestClass]
     public class TestMoodController
-    {
-        [TestMethod]
-        public void PostMood_ShouldReturnSameMood()
-        {
-            var controller = new MoodsController(new TestMoodContext());
-
-            var item = GetDemoMood();
-
-            var result =
-                controller.PostMood(item) as CreatedAtRouteNegotiatedContentResult<Mood>;
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(result.RouteName, "DefaultApi");
-            Assert.AreEqual(result.RouteValues["id"], result.Content.Id);
-            Assert.AreEqual(result.Content.Counter, item.Counter);
-        }
-                
+    {                
         [TestMethod]
         public void GetMoods_ShouldReturnAllMoods()
         {
@@ -39,20 +23,6 @@ namespace MoodAPI.Tests
 
             Assert.IsNotNull(result);
             Assert.AreEqual(3, result.Local.Count);
-        }
-
-        [TestMethod]
-        public void DeleteMood_ShouldReturnOK()
-        {
-            var context = new TestMoodContext();
-            var item = GetDemoMood();
-            context.Moods.Add(item);
-
-            var controller = new MoodsController(context);
-            var result = controller.DeleteMood(3) as OkNegotiatedContentResult<Mood>;
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(item.Id, result.Content.Id);
         }
 
         Mood GetDemoMood()
