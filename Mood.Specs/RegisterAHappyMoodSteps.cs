@@ -1,9 +1,6 @@
 ﻿using TechTalk.SpecFlow;
 using RedMood.Controllers;
-using RedMood.Models;
 using NUnit.Framework;
-using System.Web.Mvc;
-using System.Linq;
 
 namespace Mood.Specs
 {
