@@ -3,6 +3,7 @@ using RedMood.Controllers;
 using RedMood.Models;
 using NUnit.Framework;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Mood.Specs
 {
@@ -10,7 +11,7 @@ namespace Mood.Specs
     public class RegisterAHappyMoodSteps
     {
         int initCounter;
-        int moodIndex;
+        int moodId;
         MoodService service;
 
         [Given(@"I have entered the RedMood application")]
@@ -22,33 +23,36 @@ namespace Mood.Specs
         [Given(@"I feel happy")]
         public void GivenIFeelHappy()
         {
-            moodIndex = 1; //Happysmiley in the database has id = 1
-
-            //System.Collections.Generic.List<RedMood.Models.Mood> moods = await service.GetMoodsAsync();
-            //moodIndex = (moods.Find(x => x.Description.Contains("Happy"))).Id;
+            System.Collections.Generic.List<RedMood.Models.Mood> moods = service.GetMoodsAsync().GetAwaiter().GetResult(); ;
+            moodId = (moods.Find(x => x.Description.Contains("Happy"))).Id;
         }
 
         [Given(@"the counter for the happy smiley is set to a value")]
-        public async void GivenTheCounterForTheHappySmileyIsSetToAValue()
+        public void GivenTheCounterForTheHappySmileyIsSetToAValue()
         {
-            System.Collections.Generic.List<RedMood.Models.Mood> moods = await service.GetMoodsAsync();
-            initCounter = moods[moodIndex].Counter;
+            RedMood.Models.Mood mood = GetMood();
+            initCounter = mood.Counter;
         }
 
         [When(@"I press the happy smiley icon")]
-        public async void WhenIPressTheHappySmileyIcon()
+        public void WhenIPressTheHappySmileyIcon()
         {
-            await service.Increase(moodIndex);
+            service.Increase(moodId).GetAwaiter().GetResult();
         }
 
         [Then(@"the happy smiley counter value should be increased with (.*)")]
-        public async void ThenTheHappySmileyCounterValueShouldBeIncreasedWith(int increase)
+        public void ThenTheHappySmileyCounterValueShouldBeIncreasedWith(int increase)
         {
-            System.Collections.Generic.List<RedMood.Models.Mood> moods = await service.GetMoodsAsync();
-            if (moods != null)
+            RedMood.Models.Mood mood = GetMood();
+            if ( mood != null)
             {
-                Assert.AreEqual(moods[moodIndex].Counter, initCounter + increase);
+                Assert.AreEqual(mood.Counter, initCounter + increase);
             }
+        }
+
+        private RedMood.Models.Mood GetMood()
+        {            
+            return service.GetMoodAsync(moodId).GetAwaiter().GetResult();
         }
     }
 }

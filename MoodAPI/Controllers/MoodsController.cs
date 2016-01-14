@@ -31,6 +31,20 @@ namespace MoodAPI.Controllers
             return db.Moods;
         }
 
+        // GET: api/Moods/5
+        public IHttpActionResult GetMood(int id)
+        {
+            var mood = db.Moods.FirstOrDefault((p) => p.Id == id);
+            if (mood == null)
+            {
+                return NotFound();
+            }
+            return Ok(mood);
+        }
+
+
+        // RedMood.Models.Mood mood = moods.FirstOrDefault(m => m.Id.Equals(moodIndex));
+
         // PUT: api/Moods/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutMood(int id)

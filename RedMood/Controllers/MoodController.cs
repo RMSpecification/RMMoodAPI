@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using RedMood.Models;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace RedMood.Controllers
 {
@@ -14,13 +15,6 @@ namespace RedMood.Controllers
     {
         private RedMoodContext db = new RedMoodContext();
         private MoodService service = new MoodService();
-
-        // GET: Moods/Increase/5
-        public async Task<ActionResult> Increase(int id)
-        {
-            await service.Increase(id);
-            return await Index();
-        }
 
         // GET: Moods         
         public async Task<ActionResult> Index()
@@ -30,5 +24,22 @@ namespace RedMood.Controllers
                 db.Moods
             );
         }
+
+        // GET: Moods/5         
+        public async Task<Mood> GetMood(int id)
+        {
+            return await service.GetMoodAsync(id);
+        }
+
+        
+
+    // PUT: Moods/Increase/5
+    public async Task<ActionResult> Increase(int id)
+        {
+            await service.Increase(id);
+            return await Index();
+        }
+
+        
     }
 }

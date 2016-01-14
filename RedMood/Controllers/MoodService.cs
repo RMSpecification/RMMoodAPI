@@ -11,28 +11,35 @@ using System.Web;
 namespace RedMood.Controllers
 {
     public class MoodService
-    {       
+    {
+        HttpClient httpClient;
+        Uri uri;
+
+        public MoodService()
+        {
+            httpClient = new HttpClient();
+            uri = new Uri("http://localhost:53154//api/Moods/");
+        }
 
         public async Task<List<Mood>> GetMoodsAsync()
         {
-            string uri = "http://localhost:53154//api/moods";
+            return JsonConvert.DeserializeObject<List<Mood>>(
+                await httpClient.GetStringAsync(uri)
+            );
+        }
 
-            using (HttpClient httpClient = new HttpClient())
-            {
-
-                return JsonConvert.DeserializeObject<List<Mood>>(
-                    await httpClient.GetStringAsync(uri)
-                );
-            }
+        public async Task<Mood> GetMoodAsync(int id)
+        {
+            return JsonConvert.DeserializeObject<Mood>(
+                await httpClient.GetStringAsync(uri + id.ToString())
+            );
         }
 
         public async Task<HttpResponseMessage> Increase(int id)
         {
-            var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("http://localhost:53154//api/Moods/" + id);
             StringContent content = new System.Net.Http.StringContent(id.ToString(), Encoding.UTF8, "application/json");
 
-            return await httpClient.PutAsync("http://localhost:53154//api/Moods/" + id, content);
-        }
+            return await httpClient.PutAsync(uri + id.ToString(), content);
+        }       
     }
 }
