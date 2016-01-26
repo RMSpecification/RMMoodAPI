@@ -9,7 +9,8 @@
 <table class="table">
     <tr>  
         <th><a href="@Url.Action("Increase", "Mood", new { id = 1 })" /><img src="~/content/Images/happysmiley.jpg"/></th>
-        <th><a href="@Url.Action("Increase", "Mood", new { id = 2 })" /><img src="~/content/Images/sadsmiley.jpg" /></th>        
+        <th><a href="@Url.Action("Increase", "Mood", new { id = 2 })" /><img src="~/content/Images/neutralsmiley.jpg" /></th>
+        <th><a href="@Url.Action("Increase", "Mood", new { id = 3 })" /><img src="~/content/Images/sadsmiley.jpg" /></th>        
     </tr>
     <tr>
         @foreach (var item in Model)

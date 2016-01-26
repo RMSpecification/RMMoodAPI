@@ -20,8 +20,9 @@ namespace MoodAPI.Migrations
 
             context.Moods.AddOrUpdate(
                   p => p.Id,
-                  new Mood { Id = 1, Description = "~/content/Images/happysmiley.gif" },
-                  new Mood { Id = 2, Description = "~/content/Images/sadsmiley.gif" }
+                  new Mood { Id = 1, Description = "Happy" },
+                  new Mood { Id = 2, Description = "Ok" },
+                  new Mood { Id = 3, Description = "Sad" }
                 );
         }
     }
